@@ -11,7 +11,7 @@ int main() {
 	std::cout << desktopPath << std::endl;
 	std::cout << appdataPath << std::endl;
 
-	std::string minioHost = "127.0.0.1:9000";
+	std::string minioHost = "http://127.0.0.1:9000";
 	std::string minioUsername = "minioadmin";
 	std::string minioPassword = "minioadmin";
 	
