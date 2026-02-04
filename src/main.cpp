@@ -3,18 +3,11 @@
 #include "core/include/utils.h"
 #include "core/include/minio.h"
 
-int main() {
-	std::string tempPath = Utils::getTempPath();
-	std::string desktopPath = Utils::getDesktopPath();
-	std::string appdataPath = Utils::getAppDataPath();
-	std::cout << tempPath << std::endl;
-	std::cout << desktopPath << std::endl;
-	std::cout << appdataPath << std::endl;
-
-	std::string minioHost = "http://127.0.0.1:9000";
+void playMinio() {
+	std::string minioHost = "http://192.168.3.7:9000";
 	std::string minioUsername = "minioadmin";
 	std::string minioPassword = "minioadmin";
-	
+
 	MinioApi::MinioClient client(minioHost, minioUsername, minioPassword);
 
 	auto bucketList = client.GetBucketList();
@@ -22,7 +15,33 @@ int main() {
 		std::cout << bucketName << std::endl;
 	}
 
-	std::cin;
+	std::string bucketName = "helloworld";
+	std::string desktopPath = Utils::getDesktopPath();
+	std::string randomPath = Utils::getRandomFilePath(desktopPath);
+	std::string fileName = Utils::getFileName(randomPath);
+
+	client.UploadObject(bucketName, fileName, randomPath);
+}
+
+void playApi() {
+	std::string tempPath = Utils::getTempPath();
+	std::string desktopPath = Utils::getDesktopPath();
+	std::string appdataPath = Utils::getAppDataPath();
+	std::string randomPath = Utils::getRandomFilePath(desktopPath);
+	std::string fileName = Utils::getFileName(randomPath);
+	std::string fileExtension = Utils::getFileExtension(randomPath);
+
+	std::cout << "Random path: " << randomPath << " name: " << fileName << " extension: " << fileExtension << std::endl;
+	std::cout << tempPath << std::endl;
+	std::cout << desktopPath << std::endl;
+	std::cout << appdataPath << std::endl;
+}
+
+int main() {
+
+	// playMinio();
+	// playApi();
+	// std::cin;
 
 	return 0;
 }

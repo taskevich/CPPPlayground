@@ -9,6 +9,8 @@ namespace MinioApi {
 	class MinioClient {
 	public:
 		MinioClient(std::string host, std::string username, std::string password);
+		
+		bool UploadObject(std::string& bucketName, std::string& objectName, std::string& pathToObject);
 
 		std::vector<std::string> GetBucketList();
 
