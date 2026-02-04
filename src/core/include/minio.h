@@ -1,0 +1,20 @@
+#pragma once
+
+#include <string>
+#include <miniocpp/client.h>
+#include <memory>
+#include <vector>
+
+namespace MinioApi {
+	class MinioClient {
+	public:
+		MinioClient(std::string host, std::string username, std::string password);
+
+		std::vector<std::string> GetBucketList();
+
+		~MinioClient();
+	private:
+		minio::creds::StaticProvider provider_;
+		std::unique_ptr<minio::s3::Client> client_;
+	};
+}
