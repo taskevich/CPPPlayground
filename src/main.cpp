@@ -4,7 +4,7 @@
 #include "core/include/minio.h"
 
 void playMinio() {
-	std::string minioHost = "http://192.168.3.7:9000";
+	std::string minioHost = "http://10.1.0.71:9000";
 	std::string minioUsername = "minioadmin";
 	std::string minioPassword = "minioadmin";
 
@@ -15,12 +15,12 @@ void playMinio() {
 		std::cout << bucketName << std::endl;
 	}
 
-	std::string bucketName = "helloworld";
+	std::string bucketName = "ctests";
 	std::string desktopPath = Utils::getDesktopPath();
 	std::string randomPath = Utils::getRandomFilePath(desktopPath);
 	std::string fileName = Utils::getFileName(randomPath);
 
-	client.UploadObject(bucketName, fileName, randomPath);
+	client.PutObject(bucketName, fileName, randomPath);
 }
 
 void playApi() {
@@ -39,9 +39,9 @@ void playApi() {
 
 int main() {
 
-	// playMinio();
+	playMinio();
 	// playApi();
-	// std::cin;
+	std::cin;
 
 	return 0;
 }
