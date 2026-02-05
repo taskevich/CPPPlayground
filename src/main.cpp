@@ -10,17 +10,25 @@ void playMinio() {
 
 	MinioApi::MinioClient client(minioHost, minioUsername, minioPassword);
 
+	std::cout << "Bucket list:" << std::endl;
 	auto bucketList = client.GetBucketList();
 	for (const std::string& bucketName : bucketList) {
-		std::cout << bucketName << std::endl;
+		std::cout << "\tBucket name: " << bucketName << std::endl;
 	}
+	std::cout << std::endl;
 
+	std::cout << "Putting file:" << std::endl;
 	std::string bucketName = "ctests";
 	std::string desktopPath = Utils::getDesktopPath();
 	std::string randomPath = Utils::getRandomFilePath(desktopPath);
 	std::string fileName = Utils::getFileName(randomPath);
 
-	client.PutObject(bucketName, fileName, randomPath);
+	bool isPut = client.PutObject(bucketName, fileName, randomPath);
+	std::cout << "\tIs putted: " << std::endl << std::endl;
+
+	bool bucketExists = client.BucketExists(bucketName);
+
+	std::cout << "Bucket exists " << bucketExists << std::endl;
 }
 
 void playApi() {

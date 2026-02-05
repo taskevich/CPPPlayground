@@ -7,7 +7,7 @@ namespace MinioApi {
 		this->client_->IgnoreCertCheck(true);
 	}
 
-	bool MinioClient::PutObject(std::string& bucketName, std::string& objectName, std::string& pathToObject) {
+	bool MinioClient::PutObject(const std::string& bucketName, const std::string& objectName, const std::string& pathToObject) {
 		std::filesystem::path p = std::filesystem::absolute(pathToObject);
 		std::ifstream file(p, std::ios::binary | std::ios::ate);
 		
@@ -31,6 +31,18 @@ namespace MinioApi {
 		}
 
 		return true;
+	}
+
+	bool MinioClient::BucketExists(const std::string& bucketName) {
+		minio::s3::BucketExistsArgs args;
+		args.bucket = bucketName;
+
+		auto response = this->client_->BucketExists(args);
+		if (!response) {
+			std::cerr << response.Error() << std::endl;
+			return false;
+		}
+		return response.exist;
 	}
 
 	std::vector<std::string> MinioClient::GetBucketList() {

@@ -12,7 +12,9 @@ namespace MinioApi {
 	public:
 		MinioClient(std::string host, std::string username, std::string password);
 		
-		bool PutObject(std::string& bucketName, std::string& objectName, std::string& pathToObject);
+		bool PutObject(const std::string& bucketName, const std::string& objectName, const std::string& pathToObject);
+		
+		bool BucketExists(const std::string& bucketName);
 
 		std::vector<std::string> GetBucketList();
 
